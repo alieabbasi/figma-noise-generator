@@ -1,35 +1,45 @@
 <h2>Noise generator</h2>
-  <div>
-    <label for="width">Width</label>
-    <input type="text" name="width" id="width" value="50">
-  </div>
-  <div>
-    <label for="height">height</label>
-    <input type="text" name="height" id="height" value="50">
-  </div>
-  <div>
-    <label for="size">size</label>
-    <input type="text" name="size" id="size" value="1">
-  </div>
-  <div>
-    <label for="scale">scale</label>
-    <input type="text" name="scale" id="scale" value="2">
-  </div>
-  <button id="create">Create</button>
+<div>
+  <label for="width">Width</label>
+  <input type="text" name="width" id="width" value="300">
+</div>
+<div>
+  <label for="height">height</label>
+  <input type="text" name="height" id="height" value="200">
+</div>
+<div>
+  <label for="size">size</label>
+  <input type="text" name="size" id="size" value="1">
+</div>
+<div>
+  <label for="scale">scale</label>
+  <input type="text" name="scale" id="scale" value="5">
+</div>
+<div>
+  <label for="x">x</label>
+  <input type="text" name="x" id="x" value="150">
+</div>
+<div>
+  <label for="y">y</label>
+  <input type="text" name="y" id="y" value="100">
+</div>
+<button id="create">Create</button>
 <script>
 
-document.getElementById('create').onclick = () => {
-  const width = document.getElementById("width").value;
-  const height = document.getElementById("height").value;
-  const size = document.getElementById("size").value;
-  const scale = document.getElementById("scale").value;
-  if (typeof +width === "number" && typeof +height === "number") {
-    parent.postMessage({ pluginMessage: { type: 'create-shapes', width: +width, height: +height, size: +size, scale: +scale } }, '*')
+  document.getElementById('create').onclick = () => {
+    const width = document.getElementById("width").value;
+    const height = document.getElementById("height").value;
+    const size = document.getElementById("size").value;
+    const scale = document.getElementById("scale").value;
+    const x = document.getElementById("x").value;
+    const y = document.getElementById("y").value;
+    if (typeof +width === "number" && typeof +height === "number") {
+      parent.postMessage({ pluginMessage: { type: 'create-shapes', width: +width, height: +height, size: +size, scale: +scale, x: +x, y: +y } }, '*')
+    }
   }
-}
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
+  document.getElementById('cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
 
 </script>
