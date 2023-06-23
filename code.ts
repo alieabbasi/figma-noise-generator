@@ -28,9 +28,9 @@ figma.ui.onmessage = (pluginMessage: {
     ];
 
     const totalCount = rowCount * colCount;
-    const maxDistance = calculateMaxDistance(width, height, rootX, rootY)
+    const maxDistance = calculateMaxDistance(width, height, rootX, rootY);
 
-    radiusRandomGeneration(
+    radiusLinearRandomGeneration(
       mainFrame,
       width,
       height,
@@ -70,7 +70,7 @@ const calculateMaxDistance = (
   return Math.max(d1, d2, d3, d4);
 };
 
-const radiusRandomGeneration = (
+const radiusExponentialRandomGeneration = (
   frame: FrameNode,
   width: number,
   height: number,
@@ -101,22 +101,52 @@ const radiusRandomGeneration = (
       continue;
     }
 
-    const dot = figma.createEllipse();
-    dot.resize(size, size);
-    dot.fills = [
-      {
-        color: { r: 0, g: 0, b: 0 },
-        type: "SOLID",
-      },
-    ];
-    // dot.effects = [{
-    //   type: "LAYER_BLUR",
-    //   radius: 0.5,
-    //   visible: true
-    // }]
-    frame.appendChild(dot);
-    dot.x = dotX;
-    dot.y = dotY;
+    addEllipseToFrame(frame, dotX, dotY, size);
     radius = radius * rCoef;
   }
 };
+
+const radiusLinearRandomGeneration = (
+  frame: FrameNode,
+  width: number,
+  height: number,
+  maxDistance: number,
+  totalCount: number,
+  rootX: number,
+  rootY: number,
+  size: number
+) => {
+  const coefficient = 5;
+  const circlesCount = Math.floor(totalCount / coefficient);
+  const rCoef = maxDistance / circlesCount;
+  let radius = rCoef;
+
+  addEllipseToFrame(frame, rootX, rootY, size)
+  for (let i = 0; i < circlesCount; i++) {
+    for (let j = 0; j < coefficient; j++) {
+      const deg = Math.random() * 2 * Math.PI;
+      const deltaY = radius * Math.cos(deg);
+      const dotY = rootY + deltaY;
+      const deltaX = radius * Math.sin(deg);
+      const dotX = rootX + deltaX;
+
+      addEllipseToFrame(frame, dotX, dotY, size)
+    }
+
+    radius = radius + rCoef;
+  }
+};
+
+const addEllipseToFrame = (frame: FrameNode, x: number, y: number, size: number) => {
+  const dot = figma.createEllipse();
+  dot.resize(size, size);
+  dot.fills = [
+    {
+      color: { r: 0, g: 0, b: 0 },
+      type: "SOLID",
+    },
+  ];
+  frame.appendChild(dot);
+  dot.x = x;
+  dot.y = y;
+}
