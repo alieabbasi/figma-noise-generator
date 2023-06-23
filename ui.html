@@ -3,43 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 
 <body>
   <h2>Noise generator</h2>
-  <div class="input-group mb-3">
+  <div>
     <label for="width">Width</label>
     <input type="text" name="width" id="width" value="300">
   </div>
-  <div class="input-group mb-3">
+  <div>
     <label for="height">height</label>
     <input type="text" name="height" id="height" value="200">
   </div>
-  <div class="input-group mb-3">
+  <div>
     <label for="size">size</label>
-    <input type="text" name="size" id="size" value="1">
+    <input type="text" name="size" id="size" value="2">
   </div>
-  <div class="input-group mb-3">
+  <div>
     <label for="scale">scale</label>
-    <input type="text" name="scale" id="scale" value="5">
+    <input type="text" name="scale" id="scale" value="3">
   </div>
-  <div class="input-group mb-3">
+  <div>
     <label for="x">x</label>
-    <input type="text" name="x" id="x" value="150">
+    <input type="text" name="x" id="x" value="300">
   </div>
-  <div class="input-group mb-3">
+  <div>
     <label for="y">y</label>
-    <input type="text" name="y" id="y" value="100">
+    <input type="text" name="y" id="y" value="0">
   </div>
+
   <button id="create">Create</button>
 
-  <script src="./js/bootstrap.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script>
   <script>
-
     document.getElementById('create').onclick = () => {
       const width = document.getElementById("width").value;
       const height = document.getElementById("height").value;
